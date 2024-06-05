@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turan Boks Salonu ağazası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #850b0b;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        footer {
+            background-color: #850b0b;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #850b0b;
+            padding: 0.5rem;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+        nav a:hover {
+            background-color: #850b0b;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .product {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product h2 {
+            color: #333;
+        }
+        .product p {
+            color: #666;
+        }
+        .product .price {
+            color: #e74c3c;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .product .buy-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .product .buy-btn:hover {
+            background-color: #c0392b;
+        }
+        .cart {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .cart h2 {
+            color: #333;
+            text-align: center;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item img {
+            max-width: 80px;
+            height: auto;
+            margin-right: 20px;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-price,
+        .cart-item-quantity,
+        .cart-item-total {
+            text-align: right;
+            min-width: 80px;
+        }
+        .cart-total {
+            text-align: right;
+            padding: 10px 0;
+            font-size: 1.2em;
+            border-top: 1px solid #ddd;
+        }
+        .checkout-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 200px;
+        }
+        .checkout-btn:hover {
+            background-color: #c0392b;
+        }
+        .remove-btn {
+            background-color: #c0392b;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .remove-btn:hover {
+            background-color: #a93226;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Turan Boks Salonu Mağazası</h1>
+    <nav>
+        <a href="anasayfa.html">Ana Sayfa</a>
+        <a href="Boks eldiveni sitesi sepetim.html">Ürünler</a>
+        <a href="iletisim.html">İletişim</a>
+    </nav>
+</header>
+
+<div class="container">
+ <!--
+             Yunus Turan
+⠄⠄⠄⠄⣠⣴⣿⣿⣿⣷⣦⡠⣴⣶⣶⣶⣦⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⣴⣿⣿⣫⣭⣭⣭⣭⣥⢹⣟⣛⣛⣛⣃⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⣠⢸⣿⣿⣿⣿⢯⡓⢻⠿⠿⠷⡜⣯⠭⢽⠿⠯⠽⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⣼⣿⣾⣿⣿⣿⣥⣝⠂⠐⠈⢸⠿⢆⠱⠯⠄⠈⠸⣛⡒⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⣿⣿⣿⣿⣿⣿⣿⣶⣶⣭⡭⢟⣲⣶⡿⠿⠿⠿⠿⠋⠄⠄⣴⠶⠶⠶⠶⠶⢶⡀
+⣿⣿⣿⣿⣿⢟⣛⠿⢿⣷⣾⣿⣿⣿⣿⣿⣿⣿⣷⡄⠄⢰⠇⠄⠄⠄⠄⠄⠈⣧
+⣿⣿⣿⣿⣷⡹⣭⣛⠳⠶⠬⠭⢭⣝⣛⣛⣛⣫⣭⡥⠄⠸⡄⣶⣶⣾⣿⣿⢇⡟
+⠿⣿⣿⣿⣿⣿⣦⣭⣛⣛⡛⠳⠶⠶⠶⣶⣶⣶⠶⠄⠄⠄⠙⠮⣽⣛⣫⡵⠊⠁
+⣍⡲⠮⣍⣙⣛⣛⡻⠿⠿⠿⠿⠿⠿⠿⠖⠂⠄⠄⠄⠄⠄⠄⠄⠄⣸⠄⠄⠄⠄
+⣿⣿⣿⣶⣦⣬⣭⣭⣭⣝⣭⣭⣭⣴⣷⣦⡀⠄⠄⠄⠄⠄⠄⠠⠤⠿⠦⠤⠄⠄ 
+-->
+    <div class="product">
+        <img src="Altın Mavi Prof Eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺5599.99</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Altın Mavi', 5599.99, 'Altın Mavi Prof Eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Beyaz Turuncu Prof Eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺4700.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Beyaz Turuncu', 4700.00, 'Beyaz Turuncu Prof Eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Joker Prof eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺1299.99</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Joker', 1299.99, 'Joker Prof eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Kırmızı Beyaz Eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺2100.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Kırmızı Beyaz', 2100.00, 'Kırmızı Beyaz Eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Larcivert beyaz altın prof Eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺2100.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Larcivert beyaz', 2100.00, 'Larcivert beyaz altın prof Eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Siyah Kırmızı Prof Eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺2100.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Siyah Kırmızı', 2100.00, 'Siyah Kırmızı Prof Eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Siyah Altın Prof Eldiven.jpeg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Boks Eldiveni</h2>
+        <p>Yüksek kaliteli, dayanıklı boks eldiveni. Profesyonel ve amatör kullanımlar için idealdir.</p>
+        <div class="price">₺3700.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Boks Eldiveni Siyah Altın', 3700.00, 'Siyah Altın Prof Eldiven.jpeg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Amatör Lacivert Eldiven.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Amatör Boks Eldiveni</h2>
+        <p>Dayanıklı ve uygun fiyatlı boks eldiveni. Yeni başlayanlar için mükemmel bir seçim.</p>
+        <div class="price">₺749.99</div>
+        <button class="buy-btn" onclick="addToCart('Amatör Boks Eldiveni Amatör Lacivert', 749.99, 'Amatör Lacivert Eldiven.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="reyes sarı beyaz eldiven.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Amatör Boks Eldiveni</h2>
+        <p>Dayanıklı ve uygun fiyatlı boks eldiveni. Yeni başlayanlar için mükemmel bir seçim.</p>
+        <div class="price">₺749.99</div>
+        <button class="buy-btn" onclick="addToCart('Amatör Boks Eldiveni reyes sarı', 749.99, 'reyes sarı beyaz eldiven.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="krımız.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Ağır Boks Torbası</h2>
+        <p>Dayanıklı ve uygun fiyatlı boks torbası. Yeni başlayanlar için mükemmel bir seçim.</p>
+        <div class="price">₺511.00</div>
+        <button class="buy-btn" onclick="addToCart('Ağır Boks Torbası', 511.00, 'krımız.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="torba.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Excalibur Sunstar 120 x 35 Boks Torbası</h2>
+        <p>Dayanıklı ve kaliteli boks torbası. Profesyoneller için mükemmel bir seçim.</p>
+        <div class="price">₺1845.00</div>
+        <button class="buy-btn" onclick="addToCart('Excalibur Sunstar 120 x 35 Boks Torbası', 1845.00, 'torba.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Atlama ipi 1.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Atlama İpi </h2>
+        <p>Dayanıklı ve kaliteli atlama ipi. Profesyoneller için mükemmel bir seçim.</p>
+        <div class="price">₺340.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Atlama İpi Çelik', 340.00, 'Atlama ipi 1.png')">Sepete Ekle</button>
+    </div>
+    
+    <div class="product">
+        <img src="Atlama ipi 2.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Atlama İpi Çelik</h2>
+        <p>Dayanıklı ve kaliteli atlama ipi. Profesyoneller için mükemmel bir seçim.</p>
+        <div class="price">₺540.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Atlama İpi Mekanik', 540.00, 'Atlama ipi 2.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Atlama ipi 3.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Profesyonel Atlama İpi Mekanik</h2>
+        <p>Dayanıklı ve kaliteli atlama ipi. Profesyoneller için mükemmel bir seçim.</p>
+        <div class="price">₺640.00</div>
+        <button class="buy-btn" onclick="addToCart('Profesyonel Atlama İpi', 640.00, 'Atlama ipi 3.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Dişlik 1.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Boks Dişliği UFC</h2>
+        <p>Dayanıklı ve kaliteli boks dişliği. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺550.00</div>
+        <button class="buy-btn" onclick="addToCart('Boks Dişliği ufc', 550.00, 'Dişlik 1.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Dişlik 2.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Boks Dişliği Adidas</h2>
+        <p>Dayanıklı ve kaliteli boks dişliği. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺450.00</div>
+        <button class="buy-btn" onclick="addToCart('Boks Dişliği Adidas', 450.00, 'Dişlik 2.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Dişlik 3.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Boks Dişliği Vampir</h2>
+        <p>Dayanıklı ve kaliteli boks dişliği. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺430.00</div>
+        <button class="buy-btn" onclick="addToCart('Boks Dişliği Vampir', 430.00, 'Dişlik 3.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="sort1.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Another Boxer Boks Muay Thai ve Kick Boks Şortu</h2>
+        <p>Dayanıklı ve Boks Muay Thai ve Kick Boks Şortu. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺970.00</div>
+        <button class="buy-btn" onclick="addToCart('Another Boxer Boks Muay Thai ve Kick Boks Şortu', 970.00, 'sort1.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="sort2.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Dragon Boks Muay Thai ve Kick Boks Şortu</h2>
+        <p>Dayanıklı ve  Boks Muay Thai ve Kick Boks Şortu. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺940.00</div>
+        <button class="buy-btn" onclick="addToCart('Dragon Boks Muay Thai ve Kick Boks Şortu', 940.00, 'sort2.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="sort3.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Venum Boks & MMA Şortu</h2>
+        <p>Dayanıklı ve kaliteli Boks & MMA Şortu. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺1100.00</div>
+        <button class="buy-btn" onclick="addToCart('Venum Boks Şortu', 1100.00, 'sort3.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Ayakkabı venum.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Venum Siyah Boks Ayakkabısı</h2>
+        <p>Dayanıklı ve kaliteli Boks Ayakkabısı. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺4700.00</div>
+        <button class="buy-btn" onclick="addToCart('Venum Siyah Boks Ayakkabısı', 4700.00, 'Ayakkabı venum.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Ayakkabı nike.png" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Nike Siyah Boks Ayakkabısı</h2>
+        <p>Dayanıklı ve kaliteli Boks Ayakkabısı. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺5935.00</div>
+        <button class="buy-btn" onclick="addToCart('Nike Siyah Boks Ayakkabısı', 5935.00, 'Ayakkabı nike.png')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="Ayakkabı Mavi.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Hayabusa Mavi Boks Ayakkabısı</h2>
+        <p>Dayanıklı ve kaliteli Boks Ayakkabısı. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺6460.00</div>
+        <button class="buy-btn" onclick="addToCart('Hayabusa Mavi Boks Ayakkabısı', 6460.00, 'Ayakkabı Mavi.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="boks Topu.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>Suntek Hava Pompalı Masaüstü Boks Torbası</h2>
+        <p>Dayanıklı ve kaliteli Boks Hava Pompalı Masaüstü Boks Torbası. Profesyoneller ve amatörler için mükemmel bir seçim.</p>
+        <div class="price">₺1234.00</div>
+        <button class="buy-btn" onclick="addToCart('Suntek Hava Pompalı Masaüstü Boks Torbası', 1234.00, 'boks Topu.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="WBC kemeri.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>WBC dünya boks şampiyonası unvan kemeri replika</h2>
+        <p>WBC dünya boks şampiyonası unvan kemerinin birebir replikası</p>
+        <div class="price">₺5890.00</div>
+        <button class="buy-btn" onclick="addToCart('WBC dünya boks şampiyonası unvan kemeri replika', 5890.00, 'WBC kemeri.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="WBA kemer.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>WBA dünya boks şampiyonası unvan kemeri replika</h2>
+        <p>WBA dünya boks şampiyonası unvan kemerinin birebir replikası</p>
+        <div class="price">₺5390.00</div>
+        <button class="buy-btn" onclick="addToCart('WBA dünya boks şampiyonası unvan kemeri replika', 5390.00, 'WBA kemer.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="IBF kemer.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>IBF dünya boks şampiyonası unvan kemeri replika</h2>
+        <p>IBF dünya boks şampiyonası unvan kemerinin birebir replikası</p>
+        <div class="price">₺5390.00</div>
+        <button class="buy-btn" onclick="addToCart('IBF dünya boks şampiyonası unvan kemeri replika', 5390.00, 'IBF kemer.jpg')">Sepete Ekle</button>
+    </div>
+
+    <div class="product">
+        <img src="WBO kemeri.jpg" width="300" height="400" alt="Boks Eldiveni">
+        <h2>WBO dünya boks şampiyonası unvan kemeri replika</h2>
+        <p>WBO dünya boks şampiyonası unvan kemerinin birebir replikası</p>
+        <div class="price">₺5390.00</div>
+        <button class="buy-btn" onclick="addToCart('WBO dünya boks şampiyonası unvan kemeri replika', 5390.00, 'WBO kemeri.jpg')">Sepete Ekle</button>
+    </div>
+    
+<!--
+             Yunus Turan
+⠄⠄⠄⠄⣠⣴⣿⣿⣿⣷⣦⡠⣴⣶⣶⣶⣦⡀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⠄⠄⣴⣿⣿⣫⣭⣭⣭⣭⣥⢹⣟⣛⣛⣛⣃⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⠄⣠⢸⣿⣿⣿⣿⢯⡓⢻⠿⠿⠷⡜⣯⠭⢽⠿⠯⠽⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⣼⣿⣾⣿⣿⣿⣥⣝⠂⠐⠈⢸⠿⢆⠱⠯⠄⠈⠸⣛⡒⠄⠄⠄⠄⠄⠄⠄⠄⠄
+⣿⣿⣿⣿⣿⣿⣿⣶⣶⣭⡭⢟⣲⣶⡿⠿⠿⠿⠿⠋⠄⠄⣴⠶⠶⠶⠶⠶⢶⡀
+⣿⣿⣿⣿⣿⢟⣛⠿⢿⣷⣾⣿⣿⣿⣿⣿⣿⣿⣷⡄⠄⢰⠇⠄⠄⠄⠄⠄⠈⣧
+⣿⣿⣿⣿⣷⡹⣭⣛⠳⠶⠬⠭⢭⣝⣛⣛⣛⣫⣭⡥⠄⠸⡄⣶⣶⣾⣿⣿⢇⡟
+⠿⣿⣿⣿⣿⣿⣦⣭⣛⣛⡛⠳⠶⠶⠶⣶⣶⣶⠶⠄⠄⠄⠙⠮⣽⣛⣫⡵⠊⠁
+⣍⡲⠮⣍⣙⣛⣛⡻⠿⠿⠿⠿⠿⠿⠿⠖⠂⠄⠄⠄⠄⠄⠄⠄⠄⣸⠄⠄⠄⠄
+⣿⣿⣿⣶⣦⣬⣭⣭⣭⣝⣭⣭⣭⣴⣷⣦⡀⠄⠄⠄⠄⠄⠄⠠⠤⠿⠦⠤⠄⠄ 
+-->
+
+    <div class="cart">
+        <h2>Sepetinizdeki Ürünler</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">Toplam: <span id="cart-total">₺0.00</span></div>
+        <a href="#" class="checkout-btn">Ödeme Yap</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Turan Boks Salonu Mağasazı. Tüm hakları saklıdır.</p>
+</footer>
+
+<script>
+    let cart = [];
+
+    function addToCart(name, price, img) {
+        const item = cart.find(product => product.name === name);
+        if (item) {
+            item.quantity += 1;
+        } else {
+            cart.push({ name, price, img, quantity: 1 });
+        }
+        updateCart();
+    }
+
+    function removeFromCart(name) {
+        cart = cart.filter(item => item.name !== name);
+        updateCart();
+    }
+
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';
+
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+
+            cartItem.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <div class="cart-item-details">
+                    <h3>${item.name}</h3>
+                    <p>Adet: ${item.quantity}</p>
+                </div>
+                <div class="cart-item-price">₺${item.price.toFixed(2)}</div>
+                <div class="cart-item-total">₺${(item.price * item.quantity).toFixed(2)}</div>
+                <button class="remove-btn" onclick="removeFromCart('${item.name}')">Kaldır</button>
+            `;
+
+            cartItems.appendChild(cartItem);
+        });
+
+        document.getElementById('cart-total').innerText = `₺${total.toFixed(2)}`;
+    }
+</script>
+
+</body>
+</html>
